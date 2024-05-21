@@ -86,6 +86,7 @@ const Editor: React.FC<Props> & Other = (props) => {
 
 const useEditor = (): [React.MutableRefObject<monaco.editor.IStandaloneCodeEditor | undefined>] => {
   const editor = useRef<monaco.editor.IStandaloneCodeEditor>();
+  console.log('useEditor')
   return [editor];
 };
 

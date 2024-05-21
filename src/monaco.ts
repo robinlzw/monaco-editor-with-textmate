@@ -21,6 +21,7 @@ async function injectMonacoLoader() {
     script.src = `${getConfig().vs}/loader.js`;
     document.body.appendChild(script);
     script.onload = () => {
+      console.log('Inject monaco loader success')
       window.require.config({
         paths: { vs: getConfig().vs },
       });
@@ -43,8 +44,9 @@ async function loadEditor() {
 }
 
 function removePresetLanguageProvider() {
-  const languages = ['javascript', 'typescript', 'html', 'css', 'json'];
+  const languages = ['javascript', 'typescript', 'html', 'css', 'json', 'move'];
   for (const languageId of languages) {
+    console.log("removePresetLanguageProvider 111")
     window.monaco.languages.registerTokensProviderFactory(languageId, {} as any).dispose();
     window.monaco.languages.onLanguage(languageId, () => {}).dispose();
   }
@@ -90,6 +92,7 @@ const loadMonaco = async () => {
   const config = getConfig();
 
   try {
+    console.log(config)
     await injectMonacoLoader();
 
     await loadEditor();
@@ -97,15 +100,17 @@ const loadMonaco = async () => {
     if (config.removePresetLanguageConfig) {
       removePresetLanguageProvider();
     }
+    console.log("-----------11");
+    // setTypescriptConfig();
 
-    setTypescriptConfig();
-
+    console.log("-----------22");
     if (config.useTextmate) {
       const languageProvider = new LanguageProvider({
         monaco: window.monaco,
         wasm: config.wasm,
         grammars: config.grammars,
       });
+      console.log("-----------languageProvider = ", languageProvider);
       await languageProvider.loadRegistry();
 
       themeProvider = new ThemeProvider({
@@ -114,8 +119,8 @@ const loadMonaco = async () => {
         themes: config.themes,
       });
     }
-
-    // themeProvider.setTheme(config.theme);
+    console.log("-----------33");
+    themeProvider.setTheme(config.theme);
 
     status = Status.LOADED;
 

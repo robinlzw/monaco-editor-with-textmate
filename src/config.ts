@@ -1,7 +1,7 @@
 import { ProviderConfig, Grammars, Themes } from '@/types';
 // import { merge } from 'lodash';
 
-const base = `https://unpkg.com/monaco-editor-with-textmate@1.0.0/static/`;
+const base = `../static/`;
 
 const PresetGrammars: Grammars = {
   typescript: {
@@ -39,6 +39,15 @@ const PresetGrammars: Grammars = {
       aliases: ['Vue', 'vue'],
     },
   },
+  move: {
+    scopeName: 'source.move',
+    tm: `${base}textmate/move.tmLanguage.json`,
+    cfg: `${base}configuration/moveConfiguration.json`,
+    extra: {
+      id: 'move',
+      extensions: ['.move'],
+    },
+  },
 };
 
 const PresetThemes: Themes = {
@@ -46,12 +55,12 @@ const PresetThemes: Themes = {
 };
 const config: ProviderConfig = {
   vs: 'https://unpkg.com/monaco-editor@0.36.1/min/vs',
-  removePresetLanguageConfig: false,
+  removePresetLanguageConfig: true,
   theme: 'dracula',
   wasm: 'https://unpkg.com/vscode-oniguruma@1.7.0/release/onig.wasm',
   grammars: PresetGrammars,
   themes: PresetThemes,
-  useTextmate: false,
+  useTextmate: true,
 };
 
 const setConfig = (cfg: Partial<ProviderConfig>) => {

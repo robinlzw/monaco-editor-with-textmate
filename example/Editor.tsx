@@ -7,7 +7,7 @@ function App({ value }) {
       onChange={(v) => {
         console.log(v);
       }}
-      options={{ language: 'typescript', theme: 'vs-dark' }}
+      options={{ language: 'move', theme: 'vs-dark' }}
       value={value}
       height="500px"
       resize
